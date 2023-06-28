@@ -1,0 +1,19 @@
+{
+  "name": "library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": " ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "prisma": "^4.16.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.5"
+  }
+}

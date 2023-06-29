@@ -1,8 +1,9 @@
-import  Express  from "express";
+import  express  from "express";
 import cors from "cors"
 import bodyParser from "body-parser";
+import {routes} from "./Routes/routes";
 
-const app = Express()
+const app = express()
 
 
 const corsConfig = {
@@ -18,3 +19,4 @@ app.listen(3333, () => {
 
 app.use(cors(corsConfig))
 app.use(bodyParser.json())
+app.use(routes)

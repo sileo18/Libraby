@@ -19,9 +19,9 @@ model User {
 }
 
 model Book {
-  id         String @id @default(uuid())
-  title      String
-  author     String
-  company    String
-  quantidade Int
+  id       String @id @default(uuid())
+  title    String
+  author   String
+  company  String
+  quantity Int?   @default(0)
 }

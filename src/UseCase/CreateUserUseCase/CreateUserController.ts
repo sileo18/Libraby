@@ -11,6 +11,8 @@ export class CreateUserController {
 
     const resultCreate = await createUser.execute( { name, email, password } )
 
-    return res.status(201).json(resultCreate)
+    const {password: _, ...userCreated } = resultCreate
+
+    return res.status(201).json(userCreated)
   }
 }

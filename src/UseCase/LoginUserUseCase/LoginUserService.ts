@@ -3,45 +3,44 @@ import { ILoginUserDTOS } from "./LoginUserDTOS";
 import { UserAlreadyExists } from "../Errors/UserAlreadyExists";
 import { prisma } from "../../Prisma/prisma-client";
 import bcrypt from "bcrypt"
-import { EmailOrPasswordInvalids } from "../Errors/LoginWrong";
 import  jwt  from "jsonwebtoken";
+
+
 
 export class LoginUserService {
   
-  async login( { email, password, id }: ILoginUserDTOS ) {
+  async login( { email, password }: ILoginUserDTOS ) {
 
-    const user = await prisma.user.findMany({
+    const user = await prisma.user.findUnique({
       where: {
         email,
-      }
+      },     
     })
 
-    if (user.length < 0 ) {
+    if (!user) {
       
       throw new UserAlreadyExists("Email or password are invalids")
+
     }
 
-    const registeredPassword = await prisma.user.findUnique({
-      where: {
-        id,
-      },      
-      })
+    const verifyPassword = await bcrypt.compare(password, user.password )
     
-    if (registeredPassword) {
-        
-      const verifyPassword = bcrypt.compare(password, registeredPassword.password)
+    if (!verifyPassword) {
 
-      if (!verifyPassword) {
-         
-        throw new EmailOrPasswordInvalids("Email or password invalid")
-      }
-
-      const token = jwt.sign( {id:  } )
+      throw new UserAlreadyExists("Email or password are invalids")
 
     }
 
-  
+    const {password: _, ...userAuthenticated} = user
 
-  
+    const tokenJwt = jwt.sign( {id: user.id }, process.env.JWT_PASS ?? '',
+     {
+      expiresIn: '6h'
+    } )  
+
+    return {
+      user: userAuthenticated,
+      token: tokenJwt,
+    }
   }
 }

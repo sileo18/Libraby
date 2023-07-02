@@ -3,6 +3,7 @@ import { CreateUserController } from "../UseCase/CreateUserUseCase/CreateUserCon
 import { CreateBookController } from "../UseCase/CreateBookUseCase/CreateBookController";
 import { DeleteUserController } from "../UseCase/DeleteUserUseCase/DeleteUserController";
 import { UpdateQuantityBookController } from "../UseCase/UpdateQuantityBookUseCase/UpdateQuantityBookController";
+import { LoginUserController } from "../UseCase/LoginUserUseCase/LoginUserController";
 
 const routes = Router()
 
@@ -14,6 +15,10 @@ routes.post('/register', createUserController.handle )
 const deleteUserController = new DeleteUserController()
 
 routes.delete('/user/:id', deleteUserController.handle)
+
+const loginUserController = new LoginUserController()
+
+routes.post('/login', loginUserController.handle)
 
 
 const createBookController = new CreateBookController()

@@ -4,6 +4,7 @@ import { CreateBookController } from "../UseCase/CreateBookUseCase/CreateBookCon
 import { DeleteUserController } from "../UseCase/DeleteUserUseCase/DeleteUserController";
 import { UpdateQuantityBookController } from "../UseCase/UpdateQuantityBookUseCase/UpdateQuantityBookController";
 import { LoginUserController } from "../UseCase/LoginUserUseCase/LoginUserController";
+import { GetProfileController } from "../UseCase/GetProfilseUseCase/GetProfileController";
 
 const routes = Router()
 
@@ -19,6 +20,10 @@ routes.delete('/user/:id', deleteUserController.handle)
 const loginUserController = new LoginUserController()
 
 routes.post('/login', loginUserController.handle)
+
+const getProfileController = new GetProfileController()
+
+routes.get('/profile', getProfileController.handle)
 
 
 const createBookController = new CreateBookController()

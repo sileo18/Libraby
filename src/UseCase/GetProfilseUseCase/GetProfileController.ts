@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { GetProfileService } from "./GetProfileService";
-import { UserAlreadyExists } from "../Errors/UserAlreadyExists";
+import { Unauthorized } from "../Errors/Unauthorized";
 
 export class GetProfileController {
 
@@ -10,13 +10,15 @@ export class GetProfileController {
 
     if (!authorization) {
 
-      throw new UserAlreadyExists('Não Autorizado')
+      throw new Unauthorized("Unauthorized Request", 401)
 
     }
 
     const getProfileService = new GetProfileService()
 
-    const resultGet = getProfileService.getProfile( { authorization } )
+    const resultGet = await getProfileService.getProfile( { authorization } )
+
+    return res.status(200).json(resultGet)
 
   }
 }

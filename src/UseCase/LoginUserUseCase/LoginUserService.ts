@@ -1,4 +1,3 @@
-import { User } from "@prisma/client";
 import { ILoginUserDTOS } from "./LoginUserDTOS";
 import { UserAlreadyExists } from "../Errors/UserAlreadyExists";
 import { prisma } from "../../Prisma/prisma-client";

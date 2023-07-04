@@ -1,5 +1,5 @@
 import { ILoginUserDTOS } from "./LoginUserDTOS";
-import { UserAlreadyExists } from "../Errors/UserAlreadyExists";
+import { EmailOrPasswordInvalids } from "../Errors/LoginWrong";
 import { prisma } from "../../Prisma/prisma-client";
 import bcrypt from "bcrypt"
 import  jwt  from "jsonwebtoken";
@@ -18,7 +18,7 @@ export class LoginUserService {
 
     if (!user) {
       
-      throw new UserAlreadyExists("Email or password are invalids")
+      throw new EmailOrPasswordInvalids("Email or password are invalids")
 
     }
 
@@ -26,7 +26,7 @@ export class LoginUserService {
     
     if (!verifyPassword) {
 
-      throw new UserAlreadyExists("Email or password are invalids")
+      throw new EmailOrPasswordInvalids("Email or password are invalids")
 
     }
 
